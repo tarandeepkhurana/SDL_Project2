@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ResiCare</title>
+    <link rel="stylesheet" href="css/Home.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">Resi<span>Care</span></div>
+        <div id="hamburger" class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div id="sidebar" class="sidebar">
+            <!-- <a href="#about">About</a> -->
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+            <button class="btn-login" onclick="location.href='/login'">Login</button>
+            <button class="btn-signup" onclick="location.href='/signup'">Sign Up</button>
+
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Welcome to ResiCare</h1>
+            <button class="btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs8Rkzhlvf-qh7cc8AxZOgbcWKoGboQZkqmQ&s"
+                alt="Community Image">
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <h2>About Us</h2>
+        <p>At ResiCare, we simplify community living by providing a seamless platform for residents and administrators. Our system ensures efficient management of flats, resident details, visitor logs, maintenance records, and more. With user-friendly features and real-time updates, we enhance transparency, security, and convenience for every resident.</p>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2>ResiCare Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Complaint/Service Request</h3>
+                <div class="feature-details">
+                    <p>File and track complaints with ease. Request services like electricians and plumbers instantly.</p>
+                </div>
+                <span class="toggle-arrow" onclick="toggleFeature(this)">&#9660;</span>
+            </div>
+            <div class="feature-card">
+                <h3>Visitor Management</h3>
+                <div class="feature-details">
+                    <p>Maintain detailed visitor logs through the security guard login.</p>
+                </div>
+                <span class="toggle-arrow" onclick="toggleFeature(this)">&#9660;</span>
+            </div>
+            <div class="feature-card">
+                <h3>Admin & Resident Info</h3>
+                <div class="feature-details">
+                    <p>Manage Admins and Residents information.</p>
+                </div>
+                <span class="toggle-arrow" onclick="toggleFeature(this)">&#9660;</span>
+            </div>
+            <div class="feature-card">
+                <h3>Generate Polls</h3>
+                <div class="feature-details">
+                    <p>Vote on Important Society Decisions.</p>
+                </div>
+                <span class="toggle-arrow" onclick="toggleFeature(this)">&#9660;</span>
+            </div>
+            <div class="feature-card">
+                <h3>Maintenance Ledger</h3>
+                <div class="feature-details">
+                    <p>Manage society expenses and net funds.</p>
+                </div>
+                <span class="toggle-arrow" onclick="toggleFeature(this)">&#9660;</span>
+            </div>
+            <div class="feature-card">
+                <h3>Notifications and Alerts</h3>
+                <div class="feature-details">
+                    <p>Stay updated with important alerts and notifications.</p>
+                </div>
+                <span class="toggle-arrow" onclick="toggleFeature(this)">&#9660;</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2>Contact Us</h2>
+        <p>Email: support@resicare.com | Phone: +91-9876543210</p>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2025 ResiCare. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+
+        // Toggle Sidebar on Hamburger Click
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        // Close Sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && e.target !== hamburger) {
+                sidebar.classList.remove('active');
+            }
+        });
+
+        // Toggle feature card details on arrow click
+        document.querySelectorAll('.toggle-arrow').forEach(arrow => {
+            arrow.addEventListener('click', function () {
+                const card = this.closest('.feature-card');
+                card.classList.toggle('open');
+                this.innerHTML = card.classList.contains('open') ? '&#10006;' : '&#9660;';
+            });
+        });
+    </script>
+</body>
+
+</html>

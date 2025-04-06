@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Admin</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0 15px;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        h3 {
+            color: #444;
+            margin: 10px 0 5px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background: #4facfe;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #00c6ff;
+            transform: scale(1.05);
+        }
+
+        #edit-fields {
+            display: none;
+            margin-top: 15px;
+        }
+
+        /* New styles for horizontal layout */
+        #admin-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .admin-field {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 20px;
+            }
+
+            #admin-details {
+                flex-direction: column; /* Stack fields vertically on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Edit Admin</h1>
+        <h3>Block</h3>
+        <input type="text" id="edit_block" placeholder="Block">
+        <h3>Flat No.</h3>
+        <input type="text" id="edit_flat_no" placeholder="Flat No">
+        <button id="searchEditBtn">Search</button>
+
+        <div id="edit-fields">
+            <h2>Admin Details</h2>
+            <div id="admin-details">
+                <div class="admin-field">
+                    <h3>Name</h3>
+                    <input type="text" id="edit_admin_name" placeholder="Admin Name">
+                </div>
+                <div class="admin-field">
+                    <h3>Contact No.</h3>
+                    <input type="text" id="edit_contact_no" placeholder="Contact No">
+                </div>
+                <div class="admin-field">
+                    <h3>Flat Status</h3>
+                    <input type="text" id="edit_flat_status" placeholder="Flat Status">
+                </div>
+                <div class="admin-field">
+                    <h3>Email</h3>
+                    <input type="text" id="edit_email" placeholder="Email">
+                </div>
+            </div>
+            <button id="saveEditBtn">Save Changes</button>
+        </div>
+        <div id="edit-message" style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px;"></div>
+    </div>
+
+    <script src="js/adminList.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("searchEditBtn").addEventListener("click", function () {
+            });
+
+            document.getElementById("saveEditBtn").addEventListener("click", saveEdit);
+        });
+    </script>
+
+</body>
+</html>
+

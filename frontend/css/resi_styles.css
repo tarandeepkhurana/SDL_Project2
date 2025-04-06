@@ -1,0 +1,190 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 15px;
+}
+
+/* Container Styling */
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+    align-items:self-end;
+}
+
+/* Search Section */
+.search-container {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.search-container h3 {
+    width: 100%;
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Filter Section */
+.filter-container {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+/* Wrapper for Search & Filter */
+.search-filter-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Ensure both sections take equal space */
+.search-container, .filter-container {
+    flex: 1;
+}
+
+
+.filter-container h3 {
+    width: 100%;
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Input Fields */
+input, select {
+    width: 180px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    text-align: center;
+}
+
+input:focus, select:focus {
+    border-color: #4facfe;
+    box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+}
+
+/* Buttons */
+button {
+    padding: 10px 16px;
+    background: #4facfe;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-weight: 500;
+}
+
+button:hover {
+    background: #00c6ff;
+    transform: scale(1.05);
+}
+
+/* Table Container Styling */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-top: 20px;
+    max-height: 60vh;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 600px;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 12px;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Table Header */
+table th {
+    background: #4facfe;
+    color: white;
+    font-weight: bold;
+}
+
+/* Alternate Row Colors */
+table tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+/* Hover Effect */
+table tr:hover {
+    background: #e0f7ff;
+    transition: 0.3s ease;
+}
+
+/* Highlighted Row */
+.highlight {
+    background-color: rgb(178, 250, 250) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 95%;
+        padding: 20px;
+    }
+
+    .search-container, .filter-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input, select, button {
+        width: 100%;
+    }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

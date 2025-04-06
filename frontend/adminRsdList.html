@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Management</title>
+    <script src="js/adminList.js" defer></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table Container Styling */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: auto;
+            margin-top: 20px;
+            max-height: 60vh;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            min-width: 600px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        /* Table Header */
+        table th {
+            background: #4facfe;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Alternate Row Colors */
+        table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        /* Hover Effect */
+        table tr:hover {
+            background: #e0f7ff;
+            transition: 0.3s ease;
+        }
+
+        /* Highlighted Row */
+        .highlight {
+            background-color: rgb(178, 250, 250) !important;
+        }
+
+
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Admin List</h2>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Block</th>
+                        <th>Flat No.</th>
+                        <th>Admin Name</th>
+                        <th>Contact No.</th>
+                        <th>Flat Status</th>
+                        <th>Email ID</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body">
+                    <!-- Admin data will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

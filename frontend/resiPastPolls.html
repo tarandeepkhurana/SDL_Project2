@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Past Polls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        #pastPollsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .poll-card {
+            background: white;
+            width: 60%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .poll-header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .poll-results {
+            margin-top: 10px;
+        }
+
+        .poll-result {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .loading {
+            font-size: 18px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Past Polls</h1>
+    <div id="pastPollsContainer">
+        <p class="loading">Loading past polls...</p>
+    </div>
+    <a href="resiPoll.html" class="back-link">⬅ Back to Resident Dashboard</a>
+
+    <script>
+        async function loadPastPolls() {
+            try {
+                const response = await fetch("http://localhost:5000/auth/polls/past");
+                const pastPolls = await response.json();
+
+                const pollsContainer = document.getElementById("pastPollsContainer");
+                pollsContainer.innerHTML = ""; // Clear previous content
+
+                if (pastPolls.length === 0) {
+                    pollsContainer.innerHTML = "<p>No past polls found.</p>";
+                    return;
+                }
+
+                pastPolls.forEach(async (poll) => {
+                    let pollDiv = document.createElement("div");
+                    pollDiv.classList.add("poll-card");
+
+                    let pollHtml = `
+                        <div class="poll-header">Question:</div>
+                        <div>${poll.question}</div>
+                        <div class="poll-header">Results:</div>
+                        <div class="poll-results" id="results_${poll.id}">Loading results...</div>
+                    `;
+
+                    pollDiv.innerHTML = pollHtml;
+                    pollsContainer.appendChild(pollDiv);
+
+                    // Fetch results for this poll
+                    try {
+                        const resultResponse = await fetch(`http://localhost:5000/auth/polls/results/${poll.id}`);
+                        const results = await resultResponse.json();
+                        const resultsContainer = document.getElementById(`results_${poll.id}`);
+
+                        if (results.length === 0) {
+                            resultsContainer.innerHTML = "<p>No votes were cast for this poll.</p>";
+                        } else {
+                            resultsContainer.innerHTML = results.map(result =>
+                                `<div class="poll-result">
+                                    <span>${result.choice}</span>
+                                    <span>${result.votes} votes</span>
+                                </div>`
+                            ).join("");
+                        }
+                    } catch (err) {
+                        console.error("Error fetching poll results:", err);
+                        document.getElementById(`results_${poll.id}`).innerHTML = "<p>Error loading results.</p>";
+                    }
+                });
+            } catch (error) {
+                console.error("Error loading past polls:", error);
+                document.getElementById("pastPollsContainer").innerHTML = "<p>Error fetching past polls.</p>";
+            }
+        }
+
+        // ✅ Load past polls when the page loads
+        document.addEventListener("DOMContentLoaded", loadPastPolls);
+    </script>
+</body>
+
+</html>

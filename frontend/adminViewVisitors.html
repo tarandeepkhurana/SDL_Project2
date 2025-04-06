@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Visitors (Admin)</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+            padding-top: 70px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        /* Title */
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        /* Form Inputs & Buttons */
+        input,
+        button {
+            width: 90%;
+            max-width: 300px;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            border-radius: 6px;
+        }
+
+        button:hover {
+            background: #00c6ff;
+            transform: scale(1.05);
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Table Headers */
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        /* Table Rows */
+        td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+
+            /* Reduce Table Font Size */
+            th,
+            td {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            /* Enable Horizontal Scroll */
+            .container {
+                overflow-x: auto;
+            }
+
+            /* Adjust Input & Button Width */
+            input,
+            button {
+                width: 100%;
+                max-width: none;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>View Visitors List</nav>
+
+    <label for="gateNo">Search by Gate No:</label>
+    <input id="gateNo">
+
+    <label for="date">Search by Date:</label>
+    <input type="date" id="date">
+
+    <button onclick="fetchVisitors()">Search</button>
+    <button onclick="window.location.href='adminDashboard.html'">Go Back</button>
+    <!-- Tarandeep Add the route for admin's dashboard in the place of /log-visitor in this Go back button -->
+
+    <table>
+        <thead>
+            <tr>
+                <th>Gate No</th>
+                <th>Name</th>
+                <th>Contact</th>
+                <th>Purpose</th>
+                <th>Arrival Time</th>
+                <th>Departure Time</th>
+            </tr>
+        </thead>
+        <tbody id="visitorTable">
+            <!-- Visitors will be loaded here -->
+        </tbody>
+    </table>
+
+    <script>
+        function fetchVisitors() {
+            const gateNo = document.getElementById('gateNo').value;
+            const date = document.getElementById('date').value;
+
+            let url = 'http://localhost:5000/auth/admin/search-visitors?';
+            if (gateNo) url += `gate_no=${gateNo}&`;
+            if (date) url += `date=${date}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById('visitorTable');
+                    table.innerHTML = "";
+
+                    data.forEach(visitor => {
+                        const row = `<tr>
+                            <td>${visitor.gate_no}</td>
+                            <td>${visitor.name}</td>
+                            <td>${visitor.contact}</td>
+                            <td>${visitor.purpose}</td>
+                            <td>${visitor.arrival_time}</td>
+                            <td>${visitor.departure_time || 'Not Updated'}</td>
+                        </tr>`;
+                        table.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error fetching visitors:', error));
+        }
+
+        // Auto-load today's visitors
+        window.onload = () => {
+            document.getElementById('date').valueAsDate = new Date();
+            fetchVisitors();
+        };
+    </script>
+</body>
+
+</html>

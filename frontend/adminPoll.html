@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+        }
+
+        h1,
+        h2 {
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        /* Container for Polls */
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            background: #ffffff ;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Individual Poll Box */
+        .poll {
+            background: white;
+            padding: 15px;
+            margin: 10px auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .poll h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        /* Poll Results Box */
+        .results {
+            margin-top: 10px;
+            font-weight: bold;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Admin Section */
+        .admin-section {
+            width: 60%;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Form Styling */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            max-width: 600px;
+            padding: 18px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .admin-flex-container {
+            display: flex;
+            flex-direction: column;
+            /* Stack everything vertically */
+            align-items: center;
+            /* Center align */
+            max-width: 70%;
+            margin: 30px auto;
+        }
+
+        .create-poll {
+            width: 100%;
+            /* Spread but not too much */
+            max-width: 600px;
+            background: grey;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid black;
+            border-radius: 8px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            /* Center the buttons */
+            gap: 20px;
+            /* Space between buttons */
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+
+
+
+
+        /* Increase the height of the textarea */
+        .form-container textarea {
+            height: 150px;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body data-role="admin">
+    <h1>Admin Dashboard</h1>
+
+    <div class="container">
+        <div id="admin-container"></div>
+    </div>
+
+    <script src="js/poll.js"></script>
+</body>
+
+</html>

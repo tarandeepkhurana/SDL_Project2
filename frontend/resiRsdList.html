@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Dashboard</title>
+    <link rel="stylesheet" href="css/resi_styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Resident Dashboard</h2>
+
+        <div class="search-filter-wrapper">
+            <div class="search-container">
+                <h3>Search Resident</h3>
+                <input type="text" id="searchBlock" placeholder="Enter Block">
+                <input type="number" id="searchFlat" placeholder="Enter Flat Number">
+                <button id="searchBtn">Search</button>
+            </div>
+        
+            <div class="filter-container">
+                <h3>Filter Residents</h3>
+                <select id="filterBlock">
+                    <option value="">Loading Blocks...</option>
+                </select>
+                
+        
+                <select id="filterStatus">
+                    <option value="">Select Status</option>
+                    <option value="vacant">Vacant</option>
+                    <option value="booked">Booked</option>
+                    <option value="on rent">On Rent</option>
+                </select>
+                <button id="filterBtn">Apply Filter</button>
+                <button id="resetBtn">Reset Filters</button>
+            </div>
+        </div>
+        
+
+        <!-- Residents Table -->
+        <div class="table-container">
+            <h3>Residents List</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Block</th>
+                        <th>Flat No.</th>
+                        <th>Resident Name</th>
+                        <th>Contact No.</th>
+                        <th>Flat Status</th>
+                        <th>Email ID</th>
+                    </tr>
+                </thead>
+                <tbody id="residents-table-body">
+                    <!-- Dynamic Data Here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/resiRsdList.js"></script>
+</body>
+</html>

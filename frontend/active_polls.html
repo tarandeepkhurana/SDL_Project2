@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Active Polls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        #activePollsContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .poll-card {
+            background: white;
+            width: 60%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .poll-header {
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: 10px;
+            /* ✅ Added space above each header */
+            margin-bottom: 5px;
+        }
+
+        .poll-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .poll-option {
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .close-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            /* ✅ Extra space before the Close Poll button */
+        }
+
+        .close-btn:hover {
+            background: darkred;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Active Polls</h1>
+    <div id="activePollsContainer"></div>
+    <a href="adminPoll.html" class="back-link">⬅ Back to Admin Dashboard</a>
+
+    <script>
+        async function loadAdminActivePolls() {
+            try {
+                const response = await fetch("http://localhost:5000/auth/polls/active");
+                const polls = await response.json();
+
+                const pollsContainer = document.getElementById("activePollsContainer");
+                pollsContainer.innerHTML = ""; // Clear previous content
+                if (polls.length === 0) {
+                    pollsContainer.innerHTML = "<p>No active polls available.</p>";
+                    return;
+                }
+                polls.forEach(poll => {
+                    let options = [];
+                    try {
+                        options = Array.isArray(poll.options) ? poll.options : poll.options.split(",");
+                    } catch (err) {
+                        console.error("Error parsing options:", err);
+                    }
+
+                    const pollDiv = document.createElement("div");
+                    pollDiv.classList.add("poll-card");
+
+                    let pollHtml = `
+                        <div class="poll-header">Question:</div>
+                        <div>${poll.question}</div>
+                        
+                        <div class="poll-header">Options:</div>
+                        <div class="poll-options">`;
+
+                    // ✅ Display options horizontally as badges
+                    options.forEach(option => {
+                        pollHtml += `<span class="poll-option">${option}</span>`;
+                    });
+
+                    pollHtml += `
+                        </div>
+                        <button class="close-btn" onclick="closePoll(${poll.id})">Close Poll</button>
+                    `;
+
+                    pollDiv.innerHTML = pollHtml;
+                    pollsContainer.appendChild(pollDiv);
+                });
+            } catch (error) {
+                console.error("Error loading admin active polls:", error);
+            }
+        }
+
+        async function closePoll(poll_id) {
+            try {
+                const response = await fetch("http://localhost:5000/auth/polls/close", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ poll_id })
+                });
+
+                const data = await response.json();
+                alert(data.message);
+                loadAdminActivePolls(); // Refresh the polls
+            } catch (error) {
+                console.error("Error closing poll:", error);
+                alert("Failed to close poll. Please try again.");
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", loadAdminActivePolls);
+    </script>
+</body>
+
+</html>

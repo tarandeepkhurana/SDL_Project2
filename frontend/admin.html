@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/table_styles1.css"> 
+</head>
+<body>
+    <div class="container">
+        <h2 class="admin-dashboard-heading">Admin Dashboard</h2>
+
+        <!-- Actions buttons-->
+        <div class="button-group">
+            <button onclick="location.href='add_flat.html'">Add Resident/Flat</button>
+            <button onclick="location.href='edit_flat.html'">Edit Resident/Flat</button>
+            <button onclick="location.href='delete_flat.html'">Delete Resident/Flat</button>
+        </div>
+
+        <!-- Residents Table -->
+        <div class="table-container">
+            <h2>Residents Table</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Block</th>
+                        <th>Flat Number</th>
+                        <th>Owner Name</th>
+                        <th>Contact Number</th>
+                        <th>Email ID</th> 
+                        <th>Flat Status</th> 
+                    </tr>
+                </thead>
+                
+                <tbody id="residents-table-body">
+                    <!-- script.js will enter data here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="js/residentList.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .navbar a:hover {
+            color: #ffd700;
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 40px auto;
+        }
+
+        .grid-item {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .grid-title {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .grid-title:hover {
+            text-decoration: underline;
+        }
+
+        .dropdown-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #007bff;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .dropdown-btn.rotate {
+            transform: rotate(180deg);
+        }
+
+        .grid-description {
+            font-size: 14px;
+            color: #555;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s ease-in, opacity 0.3s ease-in;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <h2>ResiCare - Resident Dashboard</h2>
+        <a href="viewProfile.html">View Profile</a>
+    </nav>
+
+    <!-- Grid Section -->
+    <div class="dashboard-grid">
+        <div class="grid-item">
+            <a href="adminRsdList.html" class="grid-title">📜 Admins Info</a>
+            <button class="dropdown-btn" onclick="toggleDescription(0)">▼</button>
+            <p class="grid-description">View admins details.</p>
+        </div>
+        
+        <div class="grid-item">
+            <a href="resiRsdList.html" class="grid-title">📜 Residents Info</a>
+            <button class="dropdown-btn" onclick="toggleDescription(1)">▼</button>
+            <p class="grid-description">View residents details.</p>
+        </div> 
+
+        <div class="grid-item">
+            <a href="guard_resident.html" class="grid-title">📜 Security Guard Info</a>
+            <button class="dropdown-btn" onclick="toggleDescription(2)">▼</button>
+            <p class="grid-description">View security guards details.</p>
+        </div>
+ 
+        <div class="grid-item">
+            <a href="resiPoll.html" class="grid-title">📊 View Polls</a>
+            <button class="dropdown-btn" onclick="toggleDescription(3)">▼</button>
+            <p class="grid-description">Vote on important community decisions.</p>
+        </div>
+
+        <div class="grid-item">
+            <a href="resident_ledger.html" class="grid-title">📖 Maintenance Ledger</a>
+            <button class="dropdown-btn" onclick="toggleDescription(4)">▼</button>
+            <p class="grid-description">View society expenses and net funds.</p>
+        </div>
+
+        <div class="grid-item">
+            <a href="resiService.html" class="grid-title">📝 Complaint and Request</a>
+            <button class="dropdown-btn" onclick="toggleDescription(5)">▼</button>
+            <p class="grid-description">Register complaints or make service requests.</p>
+        </div>
+
+        <div class="grid-item">
+            <a href="resiNotif.html" class="grid-title">🔔 Notification and Alert</a>
+            <button class="dropdown-btn" onclick="toggleDescription(6)">▼</button>
+            <p class="grid-description">View notifications and alerts.</p>
+        </div>
+    </div>
+    <script>
+        function toggleDescription(index) {
+            const descriptions = document.querySelectorAll(".grid-description");
+            const buttons = document.querySelectorAll(".dropdown-btn");
+
+            descriptions.forEach((desc, i) => {
+                if (i === index) {
+                    desc.style.maxHeight = desc.style.maxHeight ? null : desc.scrollHeight + "px";
+                    desc.style.opacity = desc.style.opacity === "1" ? "0" : "1";
+                    buttons[i].classList.toggle("rotate");
+                } else {
+                    desc.style.maxHeight = null;
+                    desc.style.opacity = "0";
+                    buttons[i].classList.remove("rotate");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

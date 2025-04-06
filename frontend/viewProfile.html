@@ -1,0 +1,265 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Profile</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .profile-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid #4facfe;
+            margin-bottom: 15px;
+        }
+
+        .profile-info label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+            width: 100%;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .profile-info input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .profile-info input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 5px rgba(79, 172, 254, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background: #4facfe;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #00c6ff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <h2>Profile</h2>
+        <div class="profile-card">
+            <div class="profile-image">
+                <img src="https://www.shutterstock.com/image-vector/vector-flat-illustration-grayscale-avatar-600nw-2264922221.jpg"
+                    alt="Profile Picture">
+            </div>
+            <div class="profile-info">
+                <label>Name</label>
+                <input type="text" id="name" value="John Doe" readonly>
+
+                <label>Email</label>
+                <input type="email" id="email" value="john.doe@example.com" readonly>
+
+                <label>Flat Number</label>
+                <input type="text" id="flatNumber" value="A-101" readonly>
+
+                <label>Flat Status</label>
+                <input type="text" id="flatStatus" value="Occupied" readonly>
+
+                <label>Contact</label>
+                <input type="text" id="contact" value="+1234567890" readonly>
+
+            </div>
+        </div>
+        <button id="changePassword">Change Password</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    fetch('http://localhost:5000/auth/viewProfile', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch profile');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Profile Data:", data);
+        document.getElementById("name").textContent = data.name;
+        document.getElementById("email").textContent = data.email;
+        document.getElementById("flatNumber").textContent = data.flat_number;
+        document.getElementById("flatStatus").textContent = data.flat_status;
+        document.getElementById("contact").textContent = data.contact;
+    })
+    .catch(error => console.error("Error loading profile:", error));
+});
+    //     document.addEventListener("DOMContentLoaded", async () => {
+    //         try {
+    //             const response = await fetch('/auth/viewProfile', {
+    //                 method: 'GET',
+    //                 credentials: 'include' // Ensures cookies/JWT are sent
+    //             });
+
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch profile');
+    //             }
+
+    //             const data = await response.json();
+
+    //             // Update input fields with fetched data
+    //             document.getElementById("name").value = data.name || "N/A";
+    //             document.getElementById("email").value = data.email || "N/A";
+    //             document.getElementById("flatNumber").value = data.flat_number || "N/A";
+    //             document.getElementById("flatStatus").value = data.flat_status || "N/A";
+    //             document.getElementById("contact").value = data.contact || "N/A";
+    //         } catch (error) {
+    //             console.error('Error loading profile:', error);
+    //         }
+    //     });
+    // </script>
+</body>
+
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script defer src="js/viewProfile.js"></script> 
+</head>
+<body>
+    <h2>User Profile</h2>
+    <div id="profileInfo">Loading...</div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script defer src="js/viewProfile.js"></script> <!-- Link JavaScript file -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Profile Container */
+        .profile-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .profile-header {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 10px;
+        }
+
+        .profile-info {
+            width: 100%;
+        }
+
+        .profile-field {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .profile-field strong {
+            color: #333;
+        }
+
+        .profile-value {
+            background: #e3f2fd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #007bff;
+            min-width: 150px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">User Profile</div>
+        <div class="profile-info" id="profileInfo">
+            Loading...
+        </div>
+    </div>
+</body>
+</html>
+

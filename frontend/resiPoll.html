@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resident Polls</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            width: 60%;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .poll {
+            background: white;
+            padding: 15px;
+            margin: 10px auto;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .poll h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .poll label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        .poll button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .poll button:hover {
+            background-color: #0056b3;
+        }
+
+        #residentEmail {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-container button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-container button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Resident Polls</h1>
+
+    <div class="container">
+        <!-- ✅ Email input field -->
+        <label for="residentEmail">Enter your email:</label>
+        <input type="email" id="residentEmail" placeholder="Enter your email">
+        
+        <div id="pollsContainer"></div>
+
+        <!-- ✅ View Past Polls button -->
+        <div class="btn-container">
+            <button onclick="window.location.href='resiPastPolls.html'">View Past Polls</button>
+        </div>
+    </div>
+
+    <script src="js/poll.js"></script>
+</body>
+
+</html>

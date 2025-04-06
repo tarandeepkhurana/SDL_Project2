@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guard Dashboard - ResiCare</title>
+    <link rel="stylesheet" href="css/guard.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Guard Management Dashboard</h2>
+
+        <!-- Add Guard Section -->
+        <div class="search-container">
+            <h3>Add New Guard</h3>
+            <input type="text" id="badgeNumber" placeholder="Badge Number" required>
+            <input type="text" id="guardName" placeholder="Name" required>
+            <input type="text" id="contactNumber" placeholder="Contact No" required>
+            <input type="email" id="email" placeholder="Email">
+            <button onclick="addGuard()">Add Guard</button>
+        </div>
+        
+        <!-- Guard Table -->
+        <div class="table-container">
+            <table id="guardTable">
+                <thead>
+                    <tr>
+                        <th>Badge Number</th>
+                        <th>Name</th>
+                        <th>Contact No</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="guardTableBody"> 
+                    <!-- Guard records will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="js/guard.js"></script>
+
+</body>
+</html>

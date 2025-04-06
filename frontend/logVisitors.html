@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Visitors</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background: linear-gradient(135deg, #a3d5ff 40%, #d7edff 100%);
+            padding-top: 60px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        /* Centering Content */
+        .container {
+            width: 100%;
+            max-width: 950px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hidden Class */
+        .hidden {
+            display: none;
+        }
+
+        /* Input Fields & Buttons */
+        input,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            /* Rounded Corners */
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #00c6ff;
+            transform: scale(1.05);
+        }
+
+        /* Disabled Buttons */
+        .disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Styling for Update Button */
+        .update-btn {
+            background-color: #27ae60;
+        }
+
+        .update-btn:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Departure Time Field (Read-Only) */
+        .departure-time {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tableRow th {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            /* Default Font Size */
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+                overflow-x: auto;
+            }
+
+            input,
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .tableRow {
+                max-width: 450px;
+            }
+
+            .tableRow th {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            td {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Fixed Navbar -->
+    <nav>Security Guard Dashboard - Log Visitors</nav>
+
+    <div class="container">
+        <!-- Gate No. Entry -->
+        <input id="gateNo" placeholder="Enter Gate No." required>
+        <button onclick="showForm()">Add</button>
+        <button onclick="window.location.href='guardViewVisitors.html'">View Visitors</button>
+
+        <!-- Log Visitors Form (Initially Hidden) -->
+        <div id="visitorForm" class="hidden">
+            <input type="date" id="date" required>
+            <input type="time" id="arrivalTime" required>
+            <input type="text" id="name" placeholder="Visitor Name" required>
+            <input type="text" id="purpose" placeholder="Purpose" required>
+            <input type="text" id="contact" placeholder="Contact Info" required>
+            <button onclick="logVisitor()">Log Visitor</button>
+        </div>
+
+        <!-- Logged Visitors Table -->
+        <h3>Logged Visitors</h3>
+        <table>
+            <thead>
+                <tr class="tableRow">
+                    <th>Gate No.</th>
+                    <th>Name</th>
+                    <th>Purpose</th>
+                    <th>Contact</th>
+                    <th>Arrival Time</th>
+                    <th>Departure Time</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="visitorTable">
+                <!-- Entries will be added dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", fetchTodaysVisitors);
+
+        function showForm() {
+            const gateNo = document.getElementById('gateNo').value;
+            if (!gateNo) {
+                alert("Please enter a Gate No.");
+                return;
+            }
+            document.getElementById('visitorForm').classList.remove('hidden');
+        }
+
+        function fetchTodaysVisitors() {
+            fetch('http://localhost:5000/auth/guard/visitors-today')
+                .then(response => response.json())
+                .then(visitors => {
+                    console.log("Fetched visitors:", visitors); // ✅ Debugging Log
+
+
+                    if (!Array.isArray(visitors)) {
+                        console.error("Unexpected API response:", visitors);
+                        return;
+                    }
+
+                    const table = document.getElementById('visitorTable');
+                    table.innerHTML = ""; // ✅ Clear previous records
+
+                    visitors.forEach(visitor => addVisitorToTable(visitor));
+                })
+                .catch(error => console.error("Fetch Error:", error));
+        }
+
+        function logVisitor() {
+            const gateNo = document.getElementById('gateNo').value;
+            const date = document.getElementById('date').value;
+            const arrivalTime = document.getElementById('arrivalTime').value;
+            const name = document.getElementById('name').value;
+            const purpose = document.getElementById('purpose').value;
+            const contact = document.getElementById('contact').value;
+
+            if (!gateNo || !date || !arrivalTime || !name || !purpose || !contact) {
+                alert("All fields are required!");
+                return;
+            }
+
+            fetch('http://localhost:5000/auth/log-visitor', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ gate_no: gateNo, date, arrival_time: arrivalTime, name, purpose, contact })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Error logging visitor.");
+                    } else {
+                        fetchTodaysVisitors(); // Reload the visitor table
+
+                        // ✅ Clear input fields after logging the visitor
+                        document.getElementById('gateNo').value = "";
+                        document.getElementById('date').value = "";
+                        document.getElementById('arrivalTime').value = "";
+                        document.getElementById('name').value = "";
+                        document.getElementById('purpose').value = "";
+                        document.getElementById('contact').value = "";
+
+                        // ✅ Hide the form after logging
+                        document.getElementById('visitorForm').classList.add('hidden');
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function addVisitorToTable(visitor) {
+            const table = document.getElementById('visitorTable');
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td>${visitor.gate_no}</td>
+            <td>${visitor.name}</td>
+            <td>${visitor.purpose}</td>
+            <td>${visitor.contact}</td>
+            <td>${formatTime(visitor.arrival_time)}</td>
+            <td>
+                <input type="time" id="departure-${visitor.id}" value="${visitor.departure_time || ''}" ${visitor.departure_time ? 'readonly' : ''}>
+            </td>
+            <td>
+                <button id="update-${visitor.id}" onclick="updateDeparture(${visitor.id})" ${visitor.departure_time ? 'disabled' : ''}>
+                    Update
+                </button>
+            </td>`;
+
+            table.appendChild(row);
+
+            // ✅ Keep the button disabled if departure time was already set
+            const updateButton = document.getElementById(`update-${visitor.id}`);
+            if (visitor.departure_time) {
+                updateButton.classList.add('disabled');
+                updateButton.disabled = true;
+            }
+        }
+
+        function updateDeparture(visitorId) {
+            const departureInput = document.getElementById(`departure-${visitorId}`);
+            const departureTime = departureInput.value;
+
+            if (!departureTime) {
+                alert("Please enter a departure time.");
+                return;
+            }
+
+            fetch(`http://localhost:5000/auth/update-departure/${visitorId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ departure_time: departureTime })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert("Error updating departure time.");
+                    } else {
+                        const updateButton = document.getElementById(`update-${visitorId}`);
+
+                        // ✅ Disable the update button
+                        updateButton.classList.add('disabled');
+                        updateButton.disabled = true;
+
+                        // ✅ Make the departure time field read-only
+                        departureInput.readOnly = true;
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+
+        function formatTime(timeString) {
+            if (!timeString) return ""; // Handle empty values
+            const [hours, minutes] = timeString.split(":");
+            let hour = parseInt(hours, 10);
+            const ampm = hour >= 12 ? "PM" : "AM";
+            hour = hour % 12 || 12; // Convert 24-hour to 12-hour format
+            return `${hour}:${minutes} ${ampm}`;
+        }
+
+    </script>
+
+</body>
+
+</html>

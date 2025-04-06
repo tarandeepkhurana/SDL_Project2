@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Resident/Flat</title>
+    <link rel="stylesheet" href="css/styles1.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Delete Resident/Flat</h2>
+        <form id="deleteFlatForm">
+            <input type="text" id="block" placeholder="Enter Block" required>
+            <input type="number" id="flat_number" placeholder="Enter Flat Number" required>
+            <button type="submit">Delete</button>
+        </form>
+        <button onclick="location.href='admin.html'">Back to Main Page</button>
+    </div>
+
+    <div id="confirmPopup" class="popup">
+        <div class="popup-content">
+            <h2>Are you sure you want to delete this flat details?</h2>
+            <button id="confirmYes" onclick="location.href='admin.html'" >Yes</button>
+            <button id="confirmCancel" onclick="location.href='delete_flat.html'">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/residentList.js"></script>
+</body>
+</html>

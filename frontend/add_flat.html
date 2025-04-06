@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Resident/Flat</title>
+    <link rel="stylesheet" href="css/styles1.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Add Resident/Flat</h2>
+        <form id="addFlatForm">
+            <input type="text" id="block" placeholder="Enter Block" required>
+            <input type="number" id="flat_number" placeholder="Enter Flat Number" required>
+            <input type="text" id="name" placeholder="Owner Name">
+            <input type="text" id="contact_number" placeholder="Contact Information">
+            <input type="email" id="email_id" placeholder="Email ID">
+            <select id="status">
+                <option value="vacant">Vacant</option>
+                <option value="booked">Booked</option>
+                <option value="on rent">On Rent</option>
+            </select>
+            <button type="submit">Add</button>
+        </form>
+        <button onclick="location.href='admin.html'">Back to Main Page</button>
+    </div>
+    
+    <script src="js/residentList.js"></script>
+</body>
+</html>
